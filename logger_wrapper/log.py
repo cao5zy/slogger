@@ -2,13 +2,14 @@ import logging
 import os
 import sys
 from .util import buildLogContent
+from .handler import loadHandlers
 
 class _Logger:
-    def __init__(self):
+    def __init__(master):
         def getLogger(category):
             class pureLogger:
                 def __init__(self, title = None):
-                    self.logger = logging.getLogger(category)
+                    self.logger = loadHandlers(logging.getLogger(category))
                     
                     def debug(obj):
                         self.logger.debug(buildLogContent(title, obj))
@@ -39,7 +40,7 @@ class _Logger:
                     
             return innerLogger()
         
-        self.getLogger = getLogger
+        master.getLogger = getLogger
         
         
 
