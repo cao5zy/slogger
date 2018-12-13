@@ -8,14 +8,17 @@ class _Logger:
         def getLogger(category):
             class pureLogger:
                 def __init__(self, title = None):
+                    self.logger = logging.getLogger(category)
+                    
                     def debug(obj):
-                        pass
+                        self.logger.debug(obj)
 
                     def info(obj):
-                        pass
+                        self.logger.info(obj)
 
                     def error(obj):
-                        pass
+                        self.logger.error(obj)
+
                     self.debug = debug
                     self.info = info
                     self.error = error
