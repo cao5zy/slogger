@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-
+from .util import buildLogContent
 
 class _Logger:
     def __init__(self):
@@ -11,13 +11,13 @@ class _Logger:
                     self.logger = logging.getLogger(category)
                     
                     def debug(obj):
-                        self.logger.debug(obj)
+                        self.logger.debug(buildLogContent(title, obj))
 
                     def info(obj):
-                        self.logger.info(obj)
+                        self.logger.info(buildLogContent(title, obj))
 
                     def error(obj):
-                        self.logger.error(obj)
+                        self.logger.error(buildLogContent(title, obj))
 
                     self.debug = debug
                     self.info = info
@@ -36,7 +36,7 @@ class _Logger:
                         return pureLogger(title)
 
                     self.title = title
-
+                    
             return innerLogger()
         
         self.getLogger = getLogger
