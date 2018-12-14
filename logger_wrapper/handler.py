@@ -7,7 +7,7 @@ import logging
 def loadHandlerNames():
     def work(config_name, section_name):
         if not path.exists(config_name):
-            print('config is not found at {}/{}, default std output will be used.'.format(os.getcwd(), config_name))
+            print('config is not found at {}/{}.'.format(os.getcwd(), config_name))
             return []
 
         config = ConfigParser(allow_no_value=True)
@@ -70,6 +70,14 @@ def loadHandlers(logger, category):
 
 
     def setHandlers(handler_names):
+        if len(handler_names) == 0:
+            print("no handlers are configured. the root logger will be used. Please run logging.basicConfig(level=?) to set the level, the default level is warning")
+        else:
+            print("root handler has been removed. Configured handlers will work")
+            if len(logging.root.handlers) > 0:
+                logging.root.removeHandler(logging.root.handlers[0])
+
+            
         for handler_dict in handler_names:
             logger.addHandler(handler_dict["handler"])
 
