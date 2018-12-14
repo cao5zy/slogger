@@ -6,7 +6,7 @@ import os
 def loadHandlerNames():
     def work(config_name, section_name):
         if not path.exists(config_name):
-            print('no {} found at {}'.format(config_name, os.getcwd()))
+            print('config is not found at {}/{}, default std output will be used.'.format(os.getcwd(), config_name))
             return []
 
         config = ConfigParser(allow_no_value=True)
@@ -46,7 +46,7 @@ def loadHandlers(logger):
     def setHandlers(handler_names):
         for handler_dict in handler_names:
             logger.addHandler(handler_dict["handler"])
-    
+
     (F(loadHandlerNames) >> \
         F(getValidNames) >> \
         F(buildHandlers) >> \
