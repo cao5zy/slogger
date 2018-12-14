@@ -40,8 +40,26 @@ def loadHandlers(logger, category):
 
             def buildWithCategory():
                 return TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval) if len(handler_dict["filters"]) == 0 or ("!" in handler_dict["filters"] and category not in handler_dict["filters"]) or category in handler_dict["filters"]  else None
+
+            def buildWithLevel(handler):
+                def setlevel(level_dict, level_key):
+                    if level_key not in level_dict:
+                        raise ValueError("level {} is not correct".format(level_key))
+                    handler.setLevel(level_dict[level_key])
+
+                    return handler
+
+                return setlevel({
+                    "all": 0,
+                    "notset": 0,
+                    "debug": 10,
+                    "info": 20,
+                    "warning": 30,
+                    "error": 40,
+                    "critical": 50
+                }, handler_dict["level"].lower()) if handler != None else handler
             
-            handler_dict[handler_key] = buildWithCategory()
+            handler_dict[handler_key] = buildWithLevel(buildWithCategory())
 
             return handler_dict
 
