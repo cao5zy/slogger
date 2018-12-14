@@ -74,6 +74,7 @@ def loadHandlers(logger, category):
             print("no handlers are configured. the root logger will be used. Please run logging.basicConfig(level=?) to set the level, the default level is warning")
         else:
             print("root handler has been removed. Configured handlers will work")
+            logging.root.setLevel(0)
             if len(logging.root.handlers) > 0:
                 logging.root.removeHandler(logging.root.handlers[0])
 
