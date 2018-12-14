@@ -34,10 +34,18 @@ def loadHandlers(logger):
 
 
     def buildHandlers(handler_names):
-        pass
+        def dummy(handler_dict, handler_name_key, type_of_interval, handler_key, get_file_name):
+            from logging.handlers import TimedRotatingFileHandler
 
-    def setHandlers(handlers):
-        pass
+            handler_dict[handler_key] = TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval)
+
+            return handler_dict
+
+        return [dummy(handler_dict, "name", "D", "handler", lambda name: "{}.log".format(name)) for handler_dict in handler_names]
+
+    def setHandlers(handler_names):
+        for handler_dict in handler_names:
+            logger.addHandler(handler_dict["handler"])
     
     (F(loadHandlerNames) >> \
         F(getValidNames) >> \
