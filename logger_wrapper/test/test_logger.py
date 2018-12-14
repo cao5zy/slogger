@@ -33,3 +33,19 @@ def test_all_from_file():
     assert_that('all.log').exists()
     content = contents_of('all.log')
     assert_that(content).contains("debug for test_module1")
+
+def init_config_for_category():
+    put_file('logger_wrapper.cfg', './', '''[handlers]
+all_all: test1
+''')
+
+@with_setup(init_config_for_category, remove_files)
+def test_category():
+    logger = Logger.getLogger("test_module2")
+    logger.debug('debug for test_module2') # the content should not be output to all.log
+
+    logger1 = Logger.getLogger("test1")
+    logger1.debug('debug for test1') # the content should be output to all.log
+    
+    content = contents_of("all.log")
+    assert_that(content).does_not_contain("debug for test_module2")

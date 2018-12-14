@@ -9,7 +9,7 @@ class _Logger:
         def getLogger(category):
             class pureLogger:
                 def __init__(self, title = None):
-                    self.logger = loadHandlers(logging.getLogger(category))
+                    self.logger = loadHandlers(logging.getLogger(category), category)
                     
                     def debug(obj):
                         self.logger.debug(buildLogContent(title, obj))

@@ -2,6 +2,7 @@ from fn import F
 from configparser import ConfigParser
 from os import path
 import os
+import logging
 
 def loadHandlerNames():
     def work(config_name, section_name):
@@ -30,18 +31,25 @@ def getValidNames(all_handler_names):
         }
     return [buildObj(name, all_handler_names[name], '''([\w\d]+)_([\w\d]+)''') for name in all_handler_names]        
 
-def loadHandlers(logger):
+def loadHandlers(logger, category):
 
 
     def buildHandlers(handler_names):
         def dummy(handler_dict, handler_name_key, type_of_interval, handler_key, get_file_name):
             from logging.handlers import TimedRotatingFileHandler
 
-            handler_dict[handler_key] = TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval)
+            def buildWithCategory():
+                return TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval) if len(handler_dict["filters"]) == 0 or ("!" in handler_dict["filters"] and category not in handler_dict["filters"]) or category in handler_dict["filters"]  else None
+            
+            handler_dict[handler_key] = buildWithCategory()
 
             return handler_dict
 
         return [dummy(handler_dict, "name", "D", "handler", lambda name: "{}.log".format(name)) for handler_dict in handler_names]
+
+    def filterHandlers(handler_names):
+        return [handler for handler in handler_names if handler["handler"] != None]
+
 
     def setHandlers(handler_names):
         for handler_dict in handler_names:
@@ -50,6 +58,7 @@ def loadHandlers(logger):
     (F(loadHandlerNames) >> \
         F(getValidNames) >> \
         F(buildHandlers) >> \
+        F(filterHandlers) >> \
         F(setHandlers))()
     
     return logger
