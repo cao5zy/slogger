@@ -20,9 +20,13 @@ class _Logger:
                     def error(obj):
                         self.logger.error(buildLogContent(title, obj))
 
+                    def warning(obj):
+                        self.logger.warning(buildLogContent(title, obj))
+
                     self.debug = debug
                     self.info = info
                     self.error = error
+                    self.warning = warning
                     
             class innerLogger:
                 def __init__(self):
@@ -31,7 +35,7 @@ class _Logger:
                     self.debug = _pureLogger.debug
                     self.info = _pureLogger.info
                     self.error = _pureLogger.error
-
+                    self.warning = _pureLogger.warning
 
                     def title(title):
                         return pureLogger(title)

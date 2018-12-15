@@ -72,12 +72,11 @@ def loadHandlers(logger, category):
     def setHandlers(handler_names):
         if len(handler_names) == 0:
             print("no handlers are configured. the root logger will be used. Please run logging.basicConfig(level=?) to set the level, the default level is warning")
+            logger.propagate = True
         else:
-            print("root handler has been removed. Configured handlers will work")
+            print("Configured handlers will work")
             logging.root.setLevel(0)
-            if len(logging.root.handlers) > 0:
-                logging.root.removeHandler(logging.root.handlers[0])
-
+            logger.propagate = False
             
         for handler_dict in handler_names:
             logger.addHandler(handler_dict["handler"])
