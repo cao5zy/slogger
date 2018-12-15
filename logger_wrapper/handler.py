@@ -27,7 +27,7 @@ def getValidNames(all_handler_names):
         return {
             'name': re.match(reg_rexp, name).group(1),
             'level': re.match(reg_rexp, name).group(2),
-            'filters': [] if val == '' or val == None else val.split(',')
+            'filters': [] if val == '' or val == None else [(lambda s:s.strip())(s) for s in val.split(',')]
         }
     return [buildObj(name, all_handler_names[name], '''([\w\d]+)_([\w\d]+)''') for name in all_handler_names]        
 
@@ -39,7 +39,12 @@ def loadHandlers(logger, category):
             from logging.handlers import TimedRotatingFileHandler
 
             def buildWithCategory():
-                return TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval) if len(handler_dict["filters"]) == 0 or ("!" in handler_dict["filters"] and category not in handler_dict["filters"]) or category in handler_dict["filters"]  else None
+                import pdb
+                pdb.set_trace()
+                return TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval) if \
+                    len(handler_dict["filters"]) == 0 or \
+                    ("!" in handler_dict["filters"] and category not in handler_dict["filters"]) or \
+                    ("!" not in handler_dict["filters"] and category in handler_dict["filters"])  else None
 
             def buildWithLevel(handler):
                 def setlevel(level_dict, level_key):
