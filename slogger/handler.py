@@ -19,7 +19,7 @@ def loadHandlerNames():
 
         return dict(config[section_name])
 
-    return work("logger_wrapper.cfg", "handlers")
+    return work("slogger.cfg", "handlers")
 
 def getValidNames(all_handler_names):
     def buildObj(name, val, reg_rexp):
@@ -39,8 +39,6 @@ def loadHandlers(logger, category):
             from logging.handlers import TimedRotatingFileHandler
 
             def buildWithCategory():
-                import pdb
-                pdb.set_trace()
                 return TimedRotatingFileHandler(get_file_name(handler_dict[handler_name_key]), type_of_interval) if \
                     len(handler_dict["filters"]) == 0 or \
                     ("!" in handler_dict["filters"] and category not in handler_dict["filters"]) or \
