@@ -1,6 +1,6 @@
 # slogger
 
-slogger is designed as simple a logger for configuration in your python program. The is based on the python `logging` module, but it is more simple to configure.
+slogger is designed as a simple logger for configuration in your python program. The is based on the python `logging` module, but it is more simple to configure.
 
 ## Installation
 `pip install slogger`
