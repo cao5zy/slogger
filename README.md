@@ -72,4 +72,5 @@ Add the file `slogger.cfg` at the root of execution folder. The configuration sc
 **category**: the name of category to filter out the log. Examples:
 - `app_all: app` means only the log information with category name `app` can be output to the log file `app.log` at the root of execution folder. 
 - `others_all:!, app` means all the log information except with category name `app` can be output to the log file `other.log` at the root of execution folder.
+- `all_all` means all the log information can be ouput to the log file `all.log` at the root of execution folder.
 
