@@ -8,12 +8,12 @@ import os
 logging.basicConfig(level=logging.DEBUG)
 
 def init_logger_config():
-    put_file('logger_wrapper.cfg', './', '''[handlers]
+    put_file('slogger.cfg', './', '''[handlers]
 all_all
 ''')
     
 def remove_files():
-    os.remove('logger_wrapper.cfg')
+    os.remove('slogger.cfg')
     os.remove('all.log')
     
 @with_setup(init_logger_config, remove_files)

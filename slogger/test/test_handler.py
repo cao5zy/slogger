@@ -7,12 +7,12 @@ import time
 
 def init_config_file():
     init_test_folder()
-    put_file('logger_wrapper.cfg', "./", '''[handlers]
+    put_file('slogger.cfg', "./", '''[handlers]
 all_all
 ''')
 
 def remove_config_file():
-    os.remove('logger_wrapper.cfg')
+    os.remove('slogger.cfg')
 
 @with_setup(init_config_file, remove_config_file)
 def test_loadHandlerNames():

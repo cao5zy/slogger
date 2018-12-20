@@ -7,13 +7,13 @@ import os
 
 
 def init_config_for_category():
-    put_file('logger_wrapper.cfg', './', '''[handlers]
+    put_file('slogger.cfg', './', '''[handlers]
 all_all: test1
 ''')
 
 
 def remove_files():
-    os.remove('logger_wrapper.cfg')
+    os.remove('slogger.cfg')
     os.remove('all.log')
 
     

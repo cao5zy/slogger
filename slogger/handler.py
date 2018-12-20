@@ -29,7 +29,7 @@ def getValidNames(all_handler_names):
             'level': re.match(reg_rexp, name).group(2),
             'filters': [] if val == '' or val == None else [(lambda s:s.strip())(s) for s in val.split(',')]
         }
-    return [buildObj(name, all_handler_names[name], '''([\w\d]+)_([\w\d]+)''') for name in all_handler_names]        
+    return [buildObj(name, all_handler_names[name], '''([\w\_\d]+)_(\w+)''') for name in all_handler_names]        
 
 def loadHandlers(logger, category):
 

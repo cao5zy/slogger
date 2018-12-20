@@ -6,7 +6,7 @@ requires = ['fn==0.4.3']
 
 setup(
     name = name,
-    version = '1.0.0',
+    version = '1.1.0',
     author = 'Zongying Cao',
     author_email = 'zongying.cao@dxc.com',
     description = 'slogger is a dead simple logger to use. It can be configured in very easy way.',
