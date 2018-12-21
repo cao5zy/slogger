@@ -61,8 +61,15 @@ def loadHandlers(logger, category):
                     "error": 40,
                     "critical": 50
                 }, handler_dict["level"].lower()) if handler != None else handler
-            
-            handler_dict[handler_key] = buildWithLevel(buildWithCategory())
+
+            def setFormatter(handler):
+                if not handler:
+                    return handler
+                
+                handler.setFormatter(logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'))
+                return handler
+
+            handler_dict[handler_key] = setFormatter(buildWithLevel(buildWithCategory()))
 
             return handler_dict
 
