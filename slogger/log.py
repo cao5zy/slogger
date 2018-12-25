@@ -13,15 +13,19 @@ class _Logger:
                     
                     def debug(obj):
                         self.logger.debug(buildLogContent(title, obj))
+                        return obj
 
                     def info(obj):
                         self.logger.info(buildLogContent(title, obj))
+                        return obj
 
                     def error(obj):
                         self.logger.error(buildLogContent(title, obj))
+                        return obj
 
                     def warning(obj):
                         self.logger.warning(buildLogContent(title, obj))
+                        return obj
 
                     self.debug = debug
                     self.info = info
