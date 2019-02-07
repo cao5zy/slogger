@@ -66,7 +66,7 @@ def loadHandlers(logger, category):
                 if not handler:
                     return handler
                 
-                handler.setFormatter(logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'))
+                handler.setFormatter(logging.Formatter('%(asctime)s %(name)s[line:%(lineno)d] %(levelname)s %(message)s'))
                 return handler
 
             handler_dict[handler_key] = setFormatter(buildWithLevel(buildWithCategory()))
